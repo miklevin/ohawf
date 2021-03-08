@@ -54,3 +54,9 @@ class OhAwf:
         except:
             self.creds = self.login()
         return self.creds
+
+# Cell
+if __name__ == "__main__":
+    owauf = OhAwf()
+    credentials = owauf.run()
+    print(credentials)

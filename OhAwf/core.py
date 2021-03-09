@@ -38,10 +38,9 @@ class OhAwf:
         with open("credentials.pkl", "rb") as handle:
             self.creds = pickle.load(handle)
         cred_url = self.url + self.creds.token
-        cred_response = urlopen(cred_url)
-        cred_bstring = cred_response.read()
-        cred_json = json.loads(cred_bstring.decode("utf-8"))
-        if "expires_in" in cred_json and cred_json["expires_in"] <= 0:
+        try:
+            cred_response = urlopen(cred_url)
+        except:
             request = google.auth.transport.requests.Request()
             self.creds.refresh(request)
             with open("credentials.pkl", "wb") as handle:
@@ -55,7 +54,6 @@ class OhAwf:
             self.creds = self.login()
         return self.creds
 
-# Cell
 if __name__ == "__main__":
     owauf = OhAwf()
     credentials = owauf.run()

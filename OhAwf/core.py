@@ -20,39 +20,39 @@ class OhAwf:
     def __init__(self):
         self.url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
         self.scopes = ["https://www.googleapis.com/auth/webmasters.readonly"]
-        self.creds = None
+        self.credentials = None
         with open("credentials.json", "rb") as handle:
-            self.creds = json.load(handle)
+            self.credentials = json.load(handle)
         self.run()
 
     def login(self):
         """Start web-based Google OAuth2 login prompt."""
-        flow = InstalledAppFlow.from_client_config(self.creds, self.scopes)
-        self.creds = flow.run_console()
+        flow = InstalledAppFlow.from_client_config(self.credentials, self.scopes)
+        self.credentials = flow.run_console()
         with open("credentials.pkl", "wb") as handle:
-            pickle.dump(self.creds, handle)
-        return self.creds
+            pickle.dump(self.credentials, handle)
+        return self.credentials
 
     def refresh_token(self):
         """Refresh token to make new logins generally not required."""
         with open("credentials.pkl", "rb") as handle:
-            self.creds = pickle.load(handle)
-        cred_url = self.url + self.creds.token
+            self.credentials = pickle.load(handle)
+        cred_url = self.url + self.credentials.token
         try:
             cred_response = urlopen(cred_url)
         except:
             request = google.auth.transport.requests.Request()
-            self.creds.refresh(request)
+            self.credentials.refresh(request)
             with open("credentials.pkl", "wb") as handle:
-                pickle.dump(self.creds, handle)
-        return self.creds
+                pickle.dump(self.credentials, handle)
+        return self.credentials
 
     def run(self):
         try:
-            self.creds = self.refresh_token()
+            self.credentials = self.refresh_token()
         except:
-            self.creds = self.login()
-        return self.creds
+            self.credentials = self.login()
+        return self.credentials
 
 if __name__ == "__main__":
     owauf = OhAwf()

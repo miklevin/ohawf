@@ -11,22 +11,24 @@ All Google services require this authentication and the difficulties are the big
 ## How to use
 
     import ohawf
+    
+    credentials = ohawf.Get_Credentials()
 
-When you import ohawf you will immediately receive a link for the Web-based Google OAuth2 login prompt. If you're in Jupyter, you can just click it. If you're in Terminal, you can copy/paste it to the Browser address bar. When the Google OAuth2 login prompt appears, pick which account you want. Copy and paste the token it gives you into Jupyter or the terminal. You will know you're successful because you will see the printable string representation of the credentials object like so:
+Import ohawf and create a credentials object by calling the Get_Credentials() method of the package. You will immediately receive a link for the Web-based Google OAuth2 login prompt. If you're in Jupyter, you can just click it. If you're in Terminal, you can copy/paste it to the Browser address bar. When the Google OAuth2 login prompt appears, pick which account you want. Copy and paste the token it gives you into Jupyter or the terminal. You will know you're successful because you will see the printable string representation of the credentials object like so:
 
     <google.oauth2.credentials.Credentials object at 0x000001C98D602580>
 
 Once you see that, congratulations! You are sitting on top of an authenticated credentials object that you can access and use in patterns like this for GSC:
 
     # Retrieve list of Search Console sites
-    service = build('webmasters', 'v3', credentials=ohawf.credentials)
+    service = build('webmasters', 'v3', credentials=credentials)
     gsc_sites = service.sites().list().execute()
     [print(x) for x in gsc_sites]
 
 ...or this for GA:
 
     # Retreive list of Google Analytics accounts
-    service = build('analyticsreporting', 'v3', credentials=ohawf.credentials)
+    service = build('analyticsreporting', 'v3', credentials=credentials)
     ga_accounts = service.management().accounts().list().execute()
     [print(x) for x in ga_accounts]
     

@@ -34,7 +34,7 @@ Connect to Google services by giving ***build*** any (activated) API name, versi
 
     ga_service = build('analytics', 'v3', credentials=credentials)
     ga_accounts = ga_service.management().accounts().list().execute()
-    print(ga_accounts)
+    [print((x['id'], x['name'])) for x in ga_accounts['items']];
 
 ## Rant
 Notice how clean this code is. Missing is all the authentication slop and needless spreading of this process over multiple functions. It seems to be every documenter's favorite game to obfuscate Google service examples, thus infuriating newbs and raising the bar to entry. Just as advancements like Jupyter make software development fun and easy, other things like login become more difficult, I suppose to maintain some comic balance.

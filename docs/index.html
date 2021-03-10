@@ -58,25 +58,24 @@ credentials = ohawf.Credentials().get()
 
 </code></pre>
 <p>Import ohawf and create a credentials object like this. You will immediately receive a link for the Web-based Google OAuth2 login prompt. If you're in Jupyter, you can just click it. If you're in Terminal, copy/paste it to the Browser address bar. Pick the account you want when the Google prompt pops up. Copy/paste the token back into Jupyter or terminal. You will then be sitting on top of an authenticated <strong><em>credentials object</em></strong> that is used to create new Google service objects.</p>
+<p>I'm attempting to get App Verification from Google. Until I do, you may need to click <strong><em>Advanced</em></strong> and <strong><em>Go to OhAwf (unsafe)</em></strong>.</p>
 <h2 id="Google-Services">Google Services<a class="anchor-link" href="#Google-Services"> </a></h2><p>After we have an authenticated credentials object, we build Google services objects with <strong><em>build</em></strong> from the Google API Python client installed as a requirement of ohawf.</p>
 
 <pre><code>from apiclient.discovery import build
 
 </code></pre>
-<p>Connect to Google services by giving <strong><em>build</em></strong> any (activated) API name, version and credetials such as this for GSC:</p>
+<p>Connect to Google services by giving <strong><em>build</em></strong> any (activated) API name, version and credetials such listing your GSC sites:</p>
 
-<pre><code># Retrieve list of Search Console sites
-service = build('webmasters', 'v3', credentials=credentials)
-gsc_sites = service.sites().list().execute()
-[print(x) for x in gsc_sites]
+<pre><code>gsc_service = build('webmasters', 'v3', credentials=credentials)
+gsc_sites = gsc_service.sites().list().execute()
+[print(x['siteUrl']) for x in gsc_sites['siteEntry']];
 
 </code></pre>
-<p>...or this for GA:</p>
+<p>...or this go list your GA accounts:</p>
 
-<pre><code># Retreive list of Google Analytics accounts
-service = build('analyticsreporting', 'v3', credentials=credentials)
-ga_accounts = service.management().accounts().list().execute()
-[print(x) for x in ga_accounts]
+<pre><code>ga_service = build('analytics', 'v3', credentials=credentials)
+ga_accounts = ga_service.management().accounts().list().execute()
+print(ga_accounts)
 
 </code></pre>
 <h2 id="Rant">Rant<a class="anchor-link" href="#Rant"> </a></h2><p>Notice how clean this code is. Missing is all the authentication slop and needless spreading of this process over multiple functions. It seems to be every documenter's favorite game to obfuscate Google service examples, thus infuriating newbs and raising the bar to entry. Just as advancements like Jupyter make software development fun and easy, other things like login become more difficult, I suppose to maintain some comic balance.</p>
@@ -124,6 +123,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Privacy-Policy">Privacy Policy<a class="anchor-link" href="#Privacy-Policy"> </a></h1><h2 id="Last-updated:-March-10,-2021">Last updated: March 10, 2021<a class="anchor-link" href="#Last-updated:-March-10,-2021"> </a></h2><p>This app does not collect nor use any of Your Personal data.</p>
 
 </div>
 </div>

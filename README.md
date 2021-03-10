@@ -16,25 +16,25 @@ All Google services require this authentication and the difficulties are the big
 
 Import ohawf and create a credentials object like this. You will immediately receive a link for the Web-based Google OAuth2 login prompt. If you're in Jupyter, you can just click it. If you're in Terminal, copy/paste it to the Browser address bar. Pick the account you want when the Google prompt pops up. Copy/paste the token back into Jupyter or terminal. You will then be sitting on top of an authenticated ***credentials object*** that is used to create new Google service objects.
 
+I'm attempting to get App Verification from Google. Until I do, you may need to click ***Advanced*** and ***Go to OhAwf (unsafe)***.
+
 ## Google Services
 
 After we have an authenticated credentials object, we build Google services objects with ***build*** from the Google API Python client installed as a requirement of ohawf.
 
     from apiclient.discovery import build
     
-Connect to Google services by giving ***build*** any (activated) API name, version and credetials such as this for GSC:
+Connect to Google services by giving ***build*** any (activated) API name, version and credetials such listing your GSC sites:
 
-    # Retrieve list of Search Console sites
-    service = build('webmasters', 'v3', credentials=credentials)
-    gsc_sites = service.sites().list().execute()
-    [print(x) for x in gsc_sites]
+    gsc_service = build('webmasters', 'v3', credentials=credentials)
+    gsc_sites = gsc_service.sites().list().execute()
+    [print(x['siteUrl']) for x in gsc_sites['siteEntry']];
 
-...or this for GA:
+...or this go list your GA accounts:
 
-    # Retreive list of Google Analytics accounts
-    service = build('analyticsreporting', 'v3', credentials=credentials)
-    ga_accounts = service.management().accounts().list().execute()
-    [print(x) for x in ga_accounts]
+    ga_service = build('analytics', 'v3', credentials=credentials)
+    ga_accounts = ga_service.management().accounts().list().execute()
+    print(ga_accounts)
 
 ## Rant
 Notice how clean this code is. Missing is all the authentication slop and needless spreading of this process over multiple functions. It seems to be every documenter's favorite game to obfuscate Google service examples, thus infuriating newbs and raising the bar to entry. Just as advancements like Jupyter make software development fun and easy, other things like login become more difficult, I suppose to maintain some comic balance.
@@ -91,3 +91,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+# Privacy Policy
+##  Last updated: March 10, 2021
+
+This app does not collect nor use any of Your Personal data.

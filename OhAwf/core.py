@@ -18,8 +18,10 @@ class Credentials:
     """Login to Google services."""
 
     def __init__(self):
-        self.url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
-        self.scopes = ["https://www.googleapis.com/auth/webmasters.readonly"]
+        self.check_url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
+        self.scopes = []
+        self.scopes.append("https://www.googleapis.com/auth/webmasters.readonly")
+        self.scopes.append("https://www.googleapis.com/auth/analytics.readonly")
         self.credentials = None
         try:
             with open("./credentials.json", "rb") as handle:
@@ -40,7 +42,7 @@ class Credentials:
         """Refresh token to make new logins generally not required."""
         with open("credentials.pkl", "rb") as handle:
             self.credentials = pickle.load(handle)
-        cred_url = self.url + self.credentials.token
+        cred_url = self.check_url + self.credentials.token
         try:
             cred_response = urlopen(cred_url)
         except:

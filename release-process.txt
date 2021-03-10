@@ -1,0 +1,16 @@
+Ctrl+Shift+E to see it run top-to-bottom.
+Ctrl+Shift+R to reset kernel and clear all outputs.
+Ctrl+S to save.
+Repeat for core and index
+Go Right.
+nbdev_bump_version
+nbdev_build_docs
+nbdev_build_lib
+nbdev_clean_nbs
+git status
+git diff
+git commit -am "Preparing for release"
+git push
+rm dist/*
+python3 -m build
+twine upload dist/*

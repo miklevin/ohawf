@@ -8,6 +8,7 @@ Google OAuth2 login module.
 """
 import json
 import pickle
+from urllib.error import HTTPError
 from urllib.request import urlopen
 import google.auth.transport.requests
 from googleapiclient.discovery import build
@@ -45,7 +46,7 @@ class Credentials:
         cred_url = self.check_url + self.credentials.token
         try:
             cred_response = urlopen(cred_url)
-        except:
+        except HTTPError:
             request = google.auth.transport.requests.Request()
             self.credentials.refresh(request)
             with open("credentials.pkl", "wb") as handle:

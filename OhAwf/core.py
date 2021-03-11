@@ -21,8 +21,9 @@ class Credentials:
     def __init__(self):
         self.check_url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
         self.scopes = []
-        self.scopes.append("https://www.googleapis.com/auth/webmasters.readonly")
-        self.scopes.append("https://www.googleapis.com/auth/analytics.readonly")
+        add_scope = self.scopes.append
+        add_scope("https://www.googleapis.com/auth/webmasters.readonly")
+        add_scope("https://www.googleapis.com/auth/analytics.readonly")
         self.credentials = None
         try:
             with open("./credentials.json", "rb") as handle:

@@ -44,7 +44,7 @@ nb_path: "index.ipynb"
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>All Google services require this authentication and the difficulties are the biggest barrier for entry for newbs just getting started. If you have dreams of doing nifty Python with all your Google data (GA, GSC, GSheets, etc.) and have failed in the past over mere login issues, this package is for you. For example, ohawf simplifies the SEO-related processes described on their <a href="https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python">GSC API quickstart</a> page.</p>
+<p>All Google services require OAuth2 authentication and its complexity is a big barrier for entry for newbs just getting started. If you have dreams of doing nifty Python with all your Google data (GA, GSC, GSheets, etc.) and have failed in the past over mere login issues, this package is for you. For example, ohawf simplifies the SEO-related processes described on their <a href="https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python">GSC API quickstart</a> page.</p>
 
 </div>
 </div>
@@ -79,7 +79,7 @@ ga_accounts = ga_service.management().accounts().list().execute()
 
 </code></pre>
 <h2 id="Rant">Rant<a class="anchor-link" href="#Rant"> </a></h2><p>Notice how clean this code is. Missing is all the authentication slop and needless spreading of this process over multiple functions. It seems to be every documenter's favorite game to obfuscate Google service examples, thus infuriating newbs and raising the bar to entry. Just as advancements like Jupyter make software development fun and easy, other things like login become more difficult, I suppose to maintain some comic balance.</p>
-<h2 id="Become-a-Google-Developer">Become a Google Developer<a class="anchor-link" href="#Become-a-Google-Developer"> </a></h2><p>This ohawf package is ready to go. You can pip install it, or clone the Github repo. If you pip install it, you'll be using my Pipulate credentials.json from pip's site-package folder. This is fine, but you have to live with whichever API services I happen to enable through the Google Developers Console. In other words, you can only do stuff with:</p>
+<h2 id="Become-a-Google-Developer">Become a Google Developer<a class="anchor-link" href="#Become-a-Google-Developer"> </a></h2><p>This ohawf package is ready to go. If you pip install it, or clone the Github repo. If you pip install it, you'll be using my Pipulate credentials.json from pip's site-package folder. This is fine, but you have to live with whichever API services I happen to enable through the Google Developers Console. In other words, you can only do stuff with:</p>
 <ul>
 <li>Analytics Reporting</li>
 <li>Chrome UX Report</li>
@@ -91,8 +91,8 @@ ga_accounts = ga_service.management().accounts().list().execute()
 <li>YouTube Analytics             </li>
 <li>YouTube Data</li>
 </ul>
-<p>If you'd like me to add something to the default, reach out and let me know.</p>
-<h2 id="Google-Developers-Console">Google Developers Console<a class="anchor-link" href="#Google-Developers-Console"> </a></h2><p>If however you want to take control of your own destiny, using this login trick to perhaps to stuff with Google Photos, Big Query, Maps, or the Google Cloud Platform, you're going to want to replace the credentials.json file with your own. If you pip installed ohawf, then this is burried in pip's site-package folder and will be overwritten again with my own on every pip --upgrade. So git clone it instead, then go to the <a href="https://console.developers.google.com/">Google Developers Console</a> and get your credentials.json.</p>
+<p>If you'd like me to add something to the default, reach out and let me know. And by the way, if you want to do anything other than GA and GSC, you'll have to edit the code to add them to scope. API's on. Scope's off. I've considered making scope an argument but thought that would complicate things too much for version 1. Good luck.</p>
+<h2 id="Google-Developers-Console">Google Developers Console<a class="anchor-link" href="#Google-Developers-Console"> </a></h2><p>If however you want to take control of your own destiny, using this login trick to work with Google Photos, Big Query, Maps, or the Google Cloud Platform, you're going to want to replace the credentials.json file with your own. If you pip installed ohawf, then this is burried in pip's site-package folder and will be overwritten again with my own on every pip --upgrade. So git clone it instead, then go to the <a href="https://console.developers.google.com/">Google Developers Console</a> and get your credentials.json.</p>
 <p>If you switch from a <strong><em>pip install</em></strong> to <strong><em>git clone</em></strong>, then uninstall the pip version:</p>
 
 <pre><code>pip uninstall ohawf

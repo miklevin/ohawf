@@ -6,7 +6,7 @@
 
 `pip install -U ohawf`
 
-All Google services require this authentication and the difficulties are the biggest barrier for entry for newbs just getting started. If you have dreams of doing nifty Python with all your Google data (GA, GSC, GSheets, etc.) and have failed in the past over mere login issues, this package is for you. For example, ohawf simplifies the SEO-related processes described on their [GSC API quickstart](https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python) page.
+All Google services require OAuth2 authentication and its complexity is a big barrier for entry for newbs just getting started. If you have dreams of doing nifty Python with all your Google data (GA, GSC, GSheets, etc.) and have failed in the past over mere login issues, this package is for you. For example, ohawf simplifies the SEO-related processes described on their [GSC API quickstart](https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python) page.
 
 ## How to use
 
@@ -40,7 +40,7 @@ Connect to Google services by giving ***build*** any (activated) API name, versi
 Notice how clean this code is. Missing is all the authentication slop and needless spreading of this process over multiple functions. It seems to be every documenter's favorite game to obfuscate Google service examples, thus infuriating newbs and raising the bar to entry. Just as advancements like Jupyter make software development fun and easy, other things like login become more difficult, I suppose to maintain some comic balance.
 
 ## Become a Google Developer
-This ohawf package is ready to go. You can pip install it, or clone the Github repo. If you pip install it, you'll be using my Pipulate credentials.json from pip's site-package folder. This is fine, but you have to live with whichever API services I happen to enable through the Google Developers Console. In other words, you can only do stuff with:
+This ohawf package is ready to go. If you pip install it, or clone the Github repo. If you pip install it, you'll be using my Pipulate credentials.json from pip's site-package folder. This is fine, but you have to live with whichever API services I happen to enable through the Google Developers Console. In other words, you can only do stuff with:
 
 - Analytics Reporting
 - Chrome UX Report
@@ -52,10 +52,10 @@ This ohawf package is ready to go. You can pip install it, or clone the Github r
 - YouTube Analytics				
 - YouTube Data
 
-If you'd like me to add something to the default, reach out and let me know.
+If you'd like me to add something to the default, reach out and let me know. And by the way, if you want to do anything other than GA and GSC, you'll have to edit the code to add them to scope. API's on. Scope's off. I've considered making scope an argument but thought that would complicate things too much for version 1. Good luck.
 
 ## Google Developers Console
-If however you want to take control of your own destiny, using this login trick to perhaps to stuff with Google Photos, Big Query, Maps, or the Google Cloud Platform, you're going to want to replace the credentials.json file with your own. If you pip installed ohawf, then this is burried in pip's site-package folder and will be overwritten again with my own on every pip --upgrade. So git clone it instead, then go to the [Google Developers Console](https://console.developers.google.com/) and get your credentials.json. 
+If however you want to take control of your own destiny, using this login trick to work with Google Photos, Big Query, Maps, or the Google Cloud Platform, you're going to want to replace the credentials.json file with your own. If you pip installed ohawf, then this is burried in pip's site-package folder and will be overwritten again with my own on every pip --upgrade. So git clone it instead, then go to the [Google Developers Console](https://console.developers.google.com/) and get your credentials.json. 
 
 If you switch from a ***pip install*** to ***git clone***, then uninstall the pip version:
 

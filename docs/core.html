@@ -40,7 +40,7 @@ nb_path: "00_core.ipynb"
 
 
 <div class="output_markdown rendered_html output_subarea ">
-<h2 id="Credentials" class="doc_header"><code>class</code> <code>Credentials</code><a href="https://github.com/miklevin/ohawf/tree/main/ohawf/core.py#L18" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Credentials</code>()</p>
+<h2 id="Credentials" class="doc_header"><code>class</code> <code>Credentials</code><a href="https://github.com/miklevin/ohawf/tree/main/ohawf/core.py#L23" class="source_link" style="float:right">[source]</a></h2><blockquote><p><code>Credentials</code>()</p>
 </blockquote>
 <p>Login to Google services.</p>
 
@@ -64,11 +64,65 @@ nb_path: "00_core.ipynb"
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>&lt;google.oauth2.credentials.Credentials object at 0x7f82c62b8bb0&gt;
+<pre>Ready
 </pre>
 </div>
 </div>
 
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">credentials_file</span> <span class="o">=</span> <span class="s2">&quot;credentials2.json&quot;</span>
+
+<span class="c1"># Get Google Photo scopes from https://developers.google.com/photos/library/guides/authorization#incremental</span>
+<span class="n">scopes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;https://www.googleapis.com/auth/photoslibrary.readonly&#39;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">credentials</span> <span class="o">=</span> <span class="n">Credentials</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    {% endraw %}
+
+    {% raw %}
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">credentials</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 

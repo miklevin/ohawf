@@ -6,7 +6,7 @@
 
 `pip install -U ohawf`
 
-All Google services require OAuth2 authentication and its complexity is a big barrier for entry for newbs just getting started. If you have dreams of doing nifty Python with all your Google data (GA, GSC, GSheets, etc.) and have failed in the past over mere login issues, this package is for you. For example, ohawf simplifies the SEO-related processes described on their [GSC API quickstart](https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python) page.
+Google services require OAuth2 login which is often hard for newbs. If you're trying to do Python things with your Google data (GA, GSC, Sheets, Photos, etc.) and have failed in the past over mere login issues, this package is for you. For example, ohawf simplifies the SEO-related processes described on their [GSC API quickstart](https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python) page.
 
 ## How to use
 
@@ -17,6 +17,8 @@ All Google services require OAuth2 authentication and its complexity is a big ba
 Import ohawf and create a credentials object like this. You will immediately receive a link for the Web-based Google OAuth2 login prompt. If you're in Jupyter, you can just click it. If you're in Terminal, copy/paste it to the Browser address bar. Pick the account you want when the Google prompt pops up. Copy/paste the token back into Jupyter or terminal. You will then be sitting on top of an authenticated ***credentials object*** that is used to create new Google service objects.
 
 I'm attempting to get App Verification from Google. Until I do, you may need to click ***Advanced*** and ***Go to OhAwf (unsafe)***.
+
+If you wish to provide your own **Desktop App** OAuth credentials.json file downloaded from the developer console site, just drop it into your working folder with the name "credentials.json" and it will use it instead of the credentials-default.json I have provided. Additionally if you wish to change which services you're authorizing for, just add one per line to the scopes.csv file.
 
 ## Google Services
 

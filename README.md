@@ -1,5 +1,5 @@
 # ohawf
-> Google OAuth2 login that's not oh... awful.
+> Google OAuth2 login that's less ***oh awf*** ul
 
 
 ## Install
@@ -20,13 +20,17 @@ If it is your first time running you will get a link for the Web-based Google OA
 
 Click it and from the familiar Google login prompt that pops-up pick the account you want to use. If you get a security warning you have to click ***Advanced*** and ***Go to OhAwf (unsafe)***. If this bothers you, you can optionally create your own credentials.json file as described below. Copy/paste the resulting text (a.k.a. "token") back into the Jupyter field and hit Enter. You will then have the authenticated ***credentials object*** needed to connect to and interact with Google services. 
 
+### Running from Terminal
+
+If you are running from a command-line Terminal you will have to copy/paste the login link from your Terminal into a browser, login as normal, and copy the token back into the Terminal. This generally only ever has to be done once.
+
 ### Security
 
-This process deposits a credentials.pkl file in that folder that will be continually refreshed keeping you from having to log in again. Keep both your credentials.json and credentials.pkl file secret. In other words, do not commit them to your Github repos. Add them both to your .gitignore file.
+This process deposits a credentials.pkl file in that folder that will be continually refreshed eliminating the need for you to have to log in again. Keep both your credentials.json and credentials.pkl file secret. In other words, do not commit them to your Github repos. To help from doing it accidentally, add them both to your .gitignore file.
 
 ### Custom Credentials File
 
-By default, the credentials-default.json file will be used from my Pipulate project. There is nothing wrong with this because I don't use that account for anything other than this, but it is unverified by Google and will cause an OAuth2 security warning on the prompt. If you wish to provide your own credentials.json file (optional), follow the below process. 
+By default, the credentials-default.json file will be used. It is unverified by Google and will cause an OAuth2 security warning on the prompt. You may have to click **Advanced** and **Proceed Anyway** If you wish to provide your own credentials.json file to avoid this warning (optional), follow the below process. 
 
 - Go to https://console.cloud.google.com/
 - Create a new Project.
@@ -34,6 +38,9 @@ By default, the credentials-default.json file will be used from my Pipulate proj
 - Enable the APIs & Services you want to use.
 - Go to Credentials.
 - Create a new OAuth 2.0 Client IDs of the Desktop App type.
+- Go to OAuth consent screen.
+- Go to +Add users, under test users.
+- Add the users for the test (your gmail, necessary even though already the app owner)
 - Download that credentials file.
 - Rename that file to credentials.json
 - Drop that file into your working directory

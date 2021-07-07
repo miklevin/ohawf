@@ -13,6 +13,7 @@ from urllib.error import HTTPError
 from urllib.request import urlopen
 import google.auth.transport.requests
 from googleapiclient.discovery import build
+from google.auth.exceptions import RefreshError
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 
@@ -67,6 +68,8 @@ class Credentials:
     def get(self):
         try:
             self.credentials = self.refresh_token()
+        except RefreshError:
+            print('Fatal refresh error. Check validity of credentials.json')
         except:
             self.credentials = self.login()
         return self.credentials

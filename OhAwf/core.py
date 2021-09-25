@@ -29,7 +29,6 @@ class Credentials:
         elif Path("./scopes.csv").is_file():
             with open("./scopes.csv") as file_handle:
                 self.scopes = file_handle.read().splitlines()
-            self.scopes = [x.strip() for x in file_contents if x.strip()]
         else:
             self.scopes = [
                 "https://www.googleapis.com/auth/webmasters.readonly",

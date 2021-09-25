@@ -62,10 +62,10 @@ cred = ohawf.get()
 Enter the authorization code:_________________________
 
 </code></pre>
-<p>Click it and from the familiar Google login prompt that pops-up pick the account you want to use. If you get a security warning you have to click <strong><em>Advanced</em></strong> and <strong><em>Go to OhAwf (unsafe)</em></strong>. If this bothers you, you can optionally create your own credentials.json file as described below. Copy/paste the resulting text (a.k.a. "token") back into the Jupyter field and hit Enter. You will then have the authenticated <strong><em>credentials object</em></strong> needed to connect to and interact with Google services.</p>
+<p>Click it and from the familiar Google login prompt that pops-up pick the account you want to use. If you get a security warning you have to click <strong><em>Advanced</em></strong> and <strong><em>Go to OhAwf (unsafe)</em></strong>. If this bothers you, you can optionally create your own default.json file as described below. Copy/paste the resulting text (a.k.a. "token") back into the Jupyter field and hit Enter. You will then have the authenticated <strong><em>credentials object</em></strong> needed to connect to and interact with Google services.</p>
 <h3 id="Running-from-Terminal">Running from Terminal<a class="anchor-link" href="#Running-from-Terminal"> </a></h3><p>If you are running from a command-line Terminal you will have to copy/paste the login link from your Terminal into a browser, login as normal, and copy the token back into the Terminal. This generally only ever has to be done once.</p>
-<h3 id="Security">Security<a class="anchor-link" href="#Security"> </a></h3><p>This process deposits a credentials.pkl file in that folder that will be continually refreshed eliminating the need for you to have to log in again. Keep both your credentials.json and credentials.pkl file secret. In other words, do not commit them to your Github repos. To help from doing it accidentally, add them both to your .gitignore file.</p>
-<h3 id="Custom-Credentials-File">Custom Credentials File<a class="anchor-link" href="#Custom-Credentials-File"> </a></h3><p>By default, the credentials-default.json file will be used. It is unverified by Google and will cause an OAuth2 security warning on the prompt. You may have to click <strong>Advanced</strong> and <strong>Proceed Anyway</strong> If you wish to provide your own credentials.json file to avoid this warning (optional), follow the below process.</p>
+<h3 id="Security">Security<a class="anchor-link" href="#Security"> </a></h3><p>This process deposits a credentials.pkl file in that folder that will be continually refreshed eliminating the need for you to have to log in again. Keep both your default.json and credentials.pkl file secret. In other words, do not commit them to your Github repos. To help from doing it accidentally, add them both to your .gitignore file.</p>
+<h3 id="Custom-Credentials-File">Custom Credentials File<a class="anchor-link" href="#Custom-Credentials-File"> </a></h3><p>By default, the default.json file will be used. It is unverified by Google and will cause an OAuth2 security warning on the prompt. You may have to click <strong>Advanced</strong> and <strong>Proceed Anyway</strong> If you wish to provide your own default.json file to avoid this warning (optional), follow the below process.</p>
 <ul>
 <li>Go to <a href="https://console.cloud.google.com/">https://console.cloud.google.com/</a></li>
 <li>Create a new Project.</li>
@@ -77,10 +77,10 @@ Enter the authorization code:_________________________
 <li>Go to +Add users, under test users.</li>
 <li>Add the users for the test (your gmail, necessary even though already the app owner)</li>
 <li>Download that credentials file.</li>
-<li>Rename that file to credentials.json</li>
+<li>Rename that file to default.json</li>
 <li>Drop that file into your working directory</li>
 </ul>
-<p>Rename it to "credentials.json" and drop it into your working folder and it will use it instead of the provided credentials-default.json.</p>
+<p>Rename it to "default.json" and drop it into your working folder and it will use it instead of the provided default.json.</p>
 <h3 id="Adding-Scopes">Adding Scopes<a class="anchor-link" href="#Adding-Scopes"> </a></h3><p>If you want to work with more Google services than just Analytics and Search Console (<a href="https://developers.google.com/identity/protocols/oauth2/scopes">there are hundreds</a>) then activate them and add their scope URLs to the scopes.csv file, one per line.</p>
 <h2 id="Google-Services">Google Services<a class="anchor-link" href="#Google-Services"> </a></h2><p>After we have an authenticated credentials object, we build Google services objects with <strong><em>build</em></strong> from the Google API Python client installed as a requirement of ohawf.</p>
 

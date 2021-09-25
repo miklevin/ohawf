@@ -8,6 +8,7 @@ Google OAuth2 login module.
 """
 import json
 import pickle
+from os import environ
 from pathlib import Path
 from urllib.error import HTTPError
 from urllib.request import urlopen
@@ -20,16 +21,21 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 class Credentials:
     """Login to Google services."""
 
-    def __init__(self):
+    def __init__(self, scopes=False):
+        environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
         self.check_url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
-        self.scopes = [
-            "https://www.googleapis.com/auth/webmasters.readonly",
-            "https://www.googleapis.com/auth/analytics.readonly",
-        ]
-        if Path("./scopes.csv").is_file():
+        if type(scopes) == list:
+            self.scopes = scopes
+        elif Path("./scopes.csv").is_file():
             with open("./scopes.csv") as file_handle:
-                file_contents = file_handle.readlines()
+                self.scopes = file_handle.read().splitlines()
             self.scopes = [x.strip() for x in file_contents if x.strip()]
+        else:
+            self.scopes = [
+                "https://www.googleapis.com/auth/webmasters.readonly",
+                "https://www.googleapis.com/auth/analytics.readonly",
+                "https://www.googleapis.com/auth/userinfo.email",
+            ]
         self.credentials = None
         credentials_file = "./credentials-default.json"
         if Path("./credentials.json").is_file():
@@ -69,19 +75,19 @@ class Credentials:
         try:
             self.credentials = self.refresh_token()
         except RefreshError:
-            print('Fatal refresh error. Check validity of credentials.json')
+            print("Fatal refresh error. Check validity of credentials.json")
         except:
             self.credentials = self.login()
         return self.credentials
 
+
 def get():
     """Authenticate"""
     return Credentials().get()
+
 
 if __name__ == "__main__":
     print("You may provide your own credentials.json and scopes.csv files.")
     print("To create a Google OAuth2 Credentials object:")
     print()
     print("cred = ohawf.get()")
-#     credentials = Credentials().get()
-#     print(credentials)

@@ -18,7 +18,7 @@ If it is your first time running you will get a link for the Web-based Google OA
     Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=[foo]&redirect_uri=[foo]&state=[foo]&prompt=consent&access_type=offline
     Enter the authorization code:_________________________
 
-Click it and from the familiar Google login prompt that pops-up pick the account you want to use. If you get a security warning you have to click ***Advanced*** and ***Go to OhAwf (unsafe)***. If this bothers you, you can optionally create your own default.json file as described below. Copy/paste the resulting text (a.k.a. "token") back into the Jupyter field and hit Enter. You will then have the authenticated ***credentials object*** needed to connect to and interact with Google services. 
+Click it and from the familiar Google login prompt that pops-up pick the account you want to use. If you get a security warning you have to click ***Advanced*** and ***Go to OhAwf (unsafe)***. If this bothers you, you can optionally create your own credentials.json file as described below. Copy/paste the resulting text (a.k.a. "token") back into the Jupyter field and hit Enter. You will then have the authenticated ***credentials object*** needed to connect to and interact with Google services. 
 
 ### Running from Terminal
 
@@ -26,11 +26,11 @@ If you are running from a command-line Terminal you will have to copy/paste the 
 
 ### Security
 
-This process deposits a credentials.pkl file in that folder that will be continually refreshed eliminating the need for you to have to log in again. Keep both your default.json and credentials.pkl file secret. In other words, do not commit them to your Github repos. To help from doing it accidentally, add them both to your .gitignore file.
+This process deposits a credentials.pkl file in that folder that will be continually refreshed eliminating the need for you to have to log in again. Keep both your credentials.json and credentials.pkl file secret. In other words, do not commit them to your Github repos. To help from doing it accidentally, add them both to your .gitignore file.
 
 ### Custom Credentials File
 
-By default, the default.json file will be used. It is unverified by Google and will cause an OAuth2 security warning on the prompt. You may have to click **Advanced** and **Proceed Anyway** If you wish to provide your own default.json file to avoid this warning (optional), follow the below process. 
+By default, the credentials.json file will be used. It is unverified by Google and will cause an OAuth2 security warning on the prompt. You may have to click **Advanced** and **Proceed Anyway** If you wish to provide your own credentials.json file to avoid this warning (optional), follow the below process. 
 
 - Go to https://console.cloud.google.com/
 - Create a new Project.
@@ -45,7 +45,7 @@ By default, the default.json file will be used. It is unverified by Google and w
 - Rename that file to default.json
 - Drop that file into your working directory
 
-Rename it to "default.json" and drop it into your working folder and it will use it instead of the provided default.json. 
+Rename it to "credentials.json" and drop it into your working folder and it will use it instead of the provided credentials.json. 
 
 ### Adding Scopes
 

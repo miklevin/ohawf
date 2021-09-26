@@ -1,8 +1,4 @@
-Ctrl+Shift+E to see it run top-to-bottom.
-Ctrl+Shift+R to reset kernel and clear all outputs.
-Ctrl+S to save.
-Repeat for core and index
-Go Right.
+For both core & index files
 nbdev_bump_version
 nbdev_build_docs
 nbdev_build_lib

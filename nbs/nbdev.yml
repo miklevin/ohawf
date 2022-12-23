@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "ohawf"
+  site-url: "https://miklevin.github.io/ohawf"
+  description: "The easiest Google OAuth2 you ever did see."
+  repo-branch: master
+  repo-url: "https://github.com/miklevin/ohawf"

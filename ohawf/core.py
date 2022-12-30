@@ -24,7 +24,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 class Credentials:
     """Login to Google services."""
 
-    def __init__(self, scopes=False):
+    def __init__(self, scopes=False, cli=False):
         environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
         self.check_url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
         self.credential_pickle_file = "credentials.pkl"
@@ -62,23 +62,26 @@ class Credentials:
             )
         # self.get()
 
-    def get(self):
+    def get(self, cli=False):
         try:
-            self.credentials = self.refresh_token()
+            self.credentials = self.refresh_token(cli=cli)
         except Exception as error:
             print(error)
             exit(1)
         return self.credentials
 
-    def login(self):
+    def login(self, cli=False):
         """Start web-based Google OAuth2 login prompt."""
         flow = InstalledAppFlow.from_client_config(self.credentials, self.scopes)
-        self.credentials = flow.run_local_server()
+        if cli:            
+            self.credentials = flow.run_console()
+        else:
+            self.credentials = flow.run_local_server()
         with open(self.credential_pickle_file, "wb") as handle:
             pickle.dump(self.credentials, handle)
         return self.credentials
 
-    def refresh_token(self):
+    def refresh_token(self, cli=False):
         """Refresh token to make new logins generally not required."""
 
         print(f"Using scopes from {self.scope_source}.")
@@ -88,7 +91,7 @@ class Credentials:
                 self.credentials = pickle.load(handle)
         except FileNotFoundError:
             print("Stored login credentials not found. Login required...")
-            self.credentials = self.login()
+            self.credentials = self.login(cli)
 
         request = google.auth.transport.requests.Request()
         login_required, bad_scope = False, False
@@ -103,7 +106,7 @@ class Credentials:
         if bad_scope:
             Path(self.credential_pickle_file).unlink()
         if login_required:
-            self.credentials = self.login()
+            self.credentials = self.login(cli)
 
         # Test if credentials are good
         success = False
@@ -126,9 +129,12 @@ class Credentials:
         return self.credentials
 
 
-def get():
+def get(cli=False):
     """Authenticate"""
-    return Credentials().get()
+    if cli:
+        return Credentials().get(cli)
+    else:
+        return Credentials().get()
 
 
 if __name__ == "__main__":

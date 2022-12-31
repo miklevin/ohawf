@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "ohawf",
     "section": "",
-    "text": "pip install -U ohawf\nAre you trying to log into Google Analytics, Search Console, or even Google Photos from a Jupyter Notebook? Does all the advice telling you to register as a developer and the mangled Google examples have you frustrated? Well then, ohawf may be fore you."
+    "text": "pip install -U ohawf\nAre you trying to log into Google Analytics, Search Console, or even Google Photos from a Jupyter Notebook? Does all the advice telling you to register as a developer and the mangled Google examples have you frustrated? Well then, ohawf is for you. Get the same “Login as Google” prompt in Jupyter that Mobile & Web apps use."
   },
   {
     "objectID": "index.html#how-to-use",

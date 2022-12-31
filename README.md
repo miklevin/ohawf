@@ -13,7 +13,8 @@ Are you trying to log into Google Analytics, Search Console, or even
 Google Photos from a Jupyter Notebook? Does all the advice telling you
 to register as a developer and the mangled [Google
 examples](https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python)
-have you frustrated? Well then, ***ohawf*** may be fore you.
+have you frustrated? Well then, ***ohawf*** is for you. Get the same
+“Login as Google” prompt in Jupyter that Mobile & Web apps use.
 
 ## How to use
 

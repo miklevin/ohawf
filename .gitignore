@@ -1,3 +1,4 @@
+client*.json
 credentials.json
 credentials.pkl
 *.bak

@@ -13,6 +13,7 @@ import pickle
 from sys import exit
 from os import environ
 from pathlib import Path
+from random import randint
 from urllib.error import HTTPError
 from urllib.request import urlopen
 import google.auth.transport.requests
@@ -24,22 +25,20 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 class Credentials:
     """Login to Google services."""
 
-    def __init__(self, pkl=False, scopes=False, cli=False):
+    def __init__(self):
         environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
         self.check_url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
-        if not pkl:
-            pkl = "credentials.pkl"
-        scope_source = None
-        if type(scopes) == list:
-            scope_source = "Func args"
-            self.scopes = scopes
-        elif Path("./scopes.csv").is_file():
-            scope_source = "scopes.csv"
-            with open("./scopes.csv") as file_handle:
-                self.scopes = file_handle.read().splitlines()
+
+    def get(self, pkl=False, cli=False, scopes=False, file=False):
+        if file:
+            with open(file, "rb") as handle:
+                self.credentials = json.load(handle)
         else:
-            scope_source = "ohawf source code"
-            self.scopes = [
+            self.credentials = json.loads(
+                '{"installed":{"client_id":"769904540573-knscs3mhvd56odnf7i8h3al13kiqulft.apps.googleusercontent.com","project_id":"seonotebook-1470430760084","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"D2F1D--b_yKNLrJSPmrn2jik","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}'
+            )
+        if not scopes:
+            scopes = [
                 "https://www.googleapis.com/auth/spreadsheets",
                 "https://www.googleapis.com/auth/gmail.modify",
                 "https://www.googleapis.com/auth/userinfo.email",
@@ -47,56 +46,28 @@ class Credentials:
                 "https://www.googleapis.com/auth/analytics.readonly",
                 "https://www.googleapis.com/auth/webmasters.readonly",
                 "https://www.googleapis.com/auth/yt-analytics.readonly",
-                "https://www.googleapis.com/auth/photoslibrary.readonly",
+                "https://ww.googleapis.com/auth/photoslibrary.readonly",
             ]
-        self.credentials = None
-        self.scope_source = scope_source
-        credentials_file = "./credentials-default.json"
-        if Path("./credentials.json").is_file():
-            credentials_file = "./credentials.json"
-        try:
-            with open(credentials_file, "rb") as handle:
-                self.credentials = json.load(handle)
-        except:
-            self.credentials = json.loads(
-                '{"installed":{"client_id":"769904540573-knscs3mhvd56odnf7i8h3al13kiqulft.apps.googleusercontent.com","project_id":"seonotebook-1470430760084","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"D2F1D--b_yKNLrJSPmrn2jik","redirect_uris":["urn:ietf:wg:oauth:2.0:oob","http://localhost"]}}'
-            )
-        # self.get()
 
-    def get(self, pkl=False, cli=False):
         if not pkl:
             pkl = "credentials.pkl"
         try:
-            self.credentials = self.refresh_token(pkl=pkl, cli=cli)
+            self.credentials = self.refresh_token(pkl=pkl, cli=cli, scopes=scopes)
         except Exception as error:
             print(error)
             exit(1)
         return self.credentials
 
-    def login(self, pkl=False, cli=False):
-        """Start web-based Google OAuth2 login prompt."""
-        flow = InstalledAppFlow.from_client_config(self.credentials, self.scopes)
-        if cli:
-            self.credentials = flow.run_console()
-        else:
-            self.credentials = flow.run_local_server()
-        with open(pkl, "wb") as handle:
-            pickle.dump(self.credentials, handle)
-        return self.credentials
-
-    def refresh_token(self, pkl=False, cli=False):
+    def refresh_token(self, pkl=False, cli=False, scopes=False):
         """Refresh token to make new logins generally not required."""
 
-        if not pkl:
-            pkl = "credentials.pkl"
-        print(f"Using scopes from {self.scope_source}.")
         print("Logging in... ", end="")
         try:
             with open(pkl, "rb") as handle:
                 self.credentials = pickle.load(handle)
         except FileNotFoundError:
             print("Stored login credentials not found. Login required...")
-            self.credentials = self.login(pkl=pkl, cli=cli)
+            self.credentials = self.login(pkl=pkl, cli=cli, scopes=scopes)
 
         request = google.auth.transport.requests.Request()
         login_required, bad_scope = False, False
@@ -127,20 +98,32 @@ class Credentials:
             user_document = service.userinfo().get().execute()
             full_email = user_document["email"]
             m0, m1 = full_email.split("@")
-            masked = [x[1] if x[0] in [0, len(m0)] else "*" for x in enumerate(m0)]
-            display_email = f"{''.join(masked)}@{m1}"
+            stars = randint(9, 17) * "*"
+            display_email = f"{m0[0]}{stars}@{m1}"
             print(f"Successfully logged in as {display_email}")
 
         return self.credentials
 
+    def login(self, pkl=False, cli=False, scopes=False):
+        """Start web-based Google OAuth2 login prompt."""
 
-def get(pkl=False, cli=False):
-    """Authenticate"""
-    return Credentials().get(pkl=pkl, cli=cli)
+        flow = InstalledAppFlow.from_client_config(self.credentials, scopes)
+        if cli:
+            self.credentials = flow.run_console()
+        else:
+            self.credentials = flow.run_local_server()
+        with open(pkl, "wb") as handle:
+            pickle.dump(self.credentials, handle)
+        return self.credentials
+
+
+def get(pkl=False, cli=False, scopes=False, file=False):
+    """Allows simplified ohawf.get() API"""
+    return Credentials().get(pkl=pkl, cli=cli, scopes=scopes, file=file)
 
 
 if __name__ == "__main__":
-    print("You may provide your own credentials.json and scopes.csv files.")
-    print("To create a Google OAuth2 Credentials object:")
-    print()
-    print("cred = ohawf.get()")
+    print("creds = ohawf.get()  # Default")
+    print("creds = ohawf.get(scopes=scopes)  # If you have your own scopes")
+    print('creds = ohawf.get(file="client_secret.json*")  # If you\'ve have one')
+    print('creds = ohawf.get("creds.pkl")  # For specific pickled credentials file')

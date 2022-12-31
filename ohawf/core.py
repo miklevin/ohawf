@@ -24,10 +24,11 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 class Credentials:
     """Login to Google services."""
 
-    def __init__(self, scopes=False, cli=False):
+    def __init__(self, pkl=False, scopes=False, cli=False):
         environ["OAUTHLIB_RELAX_TOKEN_SCOPE"] = "1"
         self.check_url = "https://www.googleapis.com/oauth2/v1/tokeninfo?access_token="
-        self.credential_pickle_file = "credentials.pkl"
+        if not pkl:
+            pkl = "credentials.pkl"
         scope_source = None
         if type(scopes) == list:
             scope_source = "Func args"
@@ -62,36 +63,40 @@ class Credentials:
             )
         # self.get()
 
-    def get(self, cli=False):
+    def get(self, pkl=False, cli=False):
+        if not pkl:
+            pkl = "credentials.pkl"
         try:
-            self.credentials = self.refresh_token(cli=cli)
+            self.credentials = self.refresh_token(pkl=pkl, cli=cli)
         except Exception as error:
             print(error)
             exit(1)
         return self.credentials
 
-    def login(self, cli=False):
+    def login(self, pkl=False, cli=False):
         """Start web-based Google OAuth2 login prompt."""
         flow = InstalledAppFlow.from_client_config(self.credentials, self.scopes)
-        if cli:            
+        if cli:
             self.credentials = flow.run_console()
         else:
             self.credentials = flow.run_local_server()
-        with open(self.credential_pickle_file, "wb") as handle:
+        with open(pkl, "wb") as handle:
             pickle.dump(self.credentials, handle)
         return self.credentials
 
-    def refresh_token(self, cli=False):
+    def refresh_token(self, pkl=False, cli=False):
         """Refresh token to make new logins generally not required."""
 
+        if not pkl:
+            pkl = "credentials.pkl"
         print(f"Using scopes from {self.scope_source}.")
         print("Logging in... ", end="")
         try:
-            with open(self.credential_pickle_file, "rb") as handle:
+            with open(pkl, "rb") as handle:
                 self.credentials = pickle.load(handle)
         except FileNotFoundError:
             print("Stored login credentials not found. Login required...")
-            self.credentials = self.login(cli)
+            self.credentials = self.login(pkl=pkl, cli=cli)
 
         request = google.auth.transport.requests.Request()
         login_required, bad_scope = False, False
@@ -104,7 +109,7 @@ class Credentials:
             if "scope" in error.args[0]:
                 bad_scope = True
         if bad_scope:
-            Path(self.credential_pickle_file).unlink()
+            Path(pkl).unlink()
         if login_required:
             self.credentials = self.login(cli)
 
@@ -129,12 +134,9 @@ class Credentials:
         return self.credentials
 
 
-def get(cli=False):
+def get(pkl=False, cli=False):
     """Authenticate"""
-    if cli:
-        return Credentials().get(cli)
-    else:
-        return Credentials().get()
+    return Credentials().get(pkl=pkl, cli=cli)
 
 
 if __name__ == "__main__":

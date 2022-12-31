@@ -2,8 +2,8 @@ project:
   output-dir: _docs
 
 website:
-  title: "ohawf"
+  title: "ohawf Google login from Jupyter"
   site-url: "https://miklevin.github.io/ohawf"
-  description: "The easiest Google OAuth2 you ever did see."
+  description: "Easy Google login from Jupyter Notebooks"
   repo-branch: master
   repo-url: "https://github.com/miklevin/ohawf"

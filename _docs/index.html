@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="install" class="level2">
 <h2 class="anchored" data-anchor-id="install">Install</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">pip</span> install <span class="at">-U</span> ohawf</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Are you trying to log into Google Analytics, Search Console, or even Google Photos from a Jupyter Notebook? Does all the advice telling you to register as a developer and the mangled <a href="https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python">Google examples</a> have you frustrated? Well then, <strong><em>ohawf</em></strong> is for you. Get the same “Login as Google” prompt in Jupyter that Mobile &amp; Web apps use.</p>
+<p>Are you trying to log into Google Analytics, Search Console, or even Google Photos from a Jupyter Notebook? Does all the advice telling you to register as a <a href="https://console.cloud.google.com/">developer</a> and the mangled <a href="https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python">Google examples</a> have you frustrated? Well then, <strong><em>ohawf</em></strong> is for you.</p>
 </section>
 <section id="how-to-use" class="level2">
 <h2 class="anchored" data-anchor-id="how-to-use">How to use</h2>
@@ -235,7 +235,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>creds <span class="op">=</span> ohawf.get()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <section id="why-so-easy" class="level3">
 <h3 class="anchored" data-anchor-id="why-so-easy">Why So Easy?</h3>
-<p>Ohawf makes JupyterLab behave like an installed app. You know how Web or Mobile apps can offer you the “Login with Google” option? Same thing. This package makes JupyterLab work like an installed app. Perhaps you’d like to know a little more?</p>
+<p>Google OAuth2 woes go away once you can use the authentication scheme that pops up the same <strong>“login as Google”</strong> web-prompt that all Mobile and Web apps seem to be using these days. It doesn’t seem possible, but this authentication scheme actually works from a Jupyter Notebook in JupyterLab.</p>
+<p>Ohawf makes JupyterLab behave like an installed app, so that when you first run <strong>creds= ohawf.get()</strong>, you’ll be presented with the “Login with Google” prompt. Just just wait a moment, it will pop up a window separate from JupyterLab’s own, and let you log in then prompt you to close the window. If not, <a href="Drink Me">https://mikelev.in/ux</a>.</p>
 </section>
 <section id="a-tale-of-2-installed-app-flows" class="level3">
 <h3 class="anchored" data-anchor-id="a-tale-of-2-installed-app-flows">A Tale of 2 Installed App Flows</h3>
@@ -247,10 +248,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="the-new-way-gotta-have-a-webserver" class="level4">
 <h4 class="anchored" data-anchor-id="the-new-way-gotta-have-a-webserver">The New Way: Gotta Have a Webserver</h4>
-<p>The new which is now the ohawf default is <strong><em>run_local_server()</em></strong>. This is what you encounter all the time with mobile apps when you see “Login with Google”. An embedded browser pops up, goes through login, then returns you to the mobile app. This works in Jupyter too. If you have problems, run Jupyter <a href="https://mikelev.in/ux/">this way</a>. And if you need to force ohawf to use run_console() for a server installation, you can do this:</p>
+<p>The new way which is now the ohawf default is <strong><em>run_local_server()</em></strong>. This is what you encounter all the time with mobile apps when you see “Login with Google”. An embedded browser pops up, goes through login, then returns you to the mobile app. This works in Jupyter too. If you have problems, run Jupyter <a href="https://mikelev.in/ux/">this way</a>. And if you need to force ohawf to use run_console() for a server installation, you can do this:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> ohawf</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>creds <span class="op">=</span> ohawf.get(cli<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>But then you’ll have to whitelist your email address, and you can only do that through the <a href="https://console.cloud.google.com/">Goole Cloud Console</a> so chicken-and-egg. If you have to go that route, consider just registering as a Google developer and downloading a OAuth Client secret json file like this:</p>
+<p>But then you’ll have to whitelist your email address, and you can only do that through the <a href="https://console.cloud.google.com/">Google Cloud Console</a> so chicken-and-egg. If you have to go that route, consider just registering as a Google developer and downloading a OAuth Client secret json file like this:</p>
 <ul>
 <li>Go to <a href="https://console.cloud.google.com">https://console.cloud.google.com</a></li>
 <li>Make sure you’re in the correct Google account.</li>
@@ -286,7 +287,8 @@ https://www.googleapis.com/auth/webmasters.readonly
 https://www.googleapis.com/auth/yt-analytics.readonly
 https://www.googleapis.com/auth/photoslibrary.readonly</code></pre>
 <p>If you want to set your own scopes, create a Python list of scopes and feed it to ohawf:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>creds <span class="op">=</span> ohawf(scopes<span class="op">=</span>scopes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>scopes <span class="op">=</span> [<span class="st">"https://www.googleapis.com/auth/spreadsheets"</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>creds <span class="op">=</span> ohawf(scopes<span class="op">=</span>scopes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 </section>
 <section id="google-services" class="level2">

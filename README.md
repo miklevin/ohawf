@@ -11,10 +11,11 @@ pip install -U ohawf
 
 Are you trying to log into Google Analytics, Search Console, or even
 Google Photos from a Jupyter Notebook? Does all the advice telling you
-to register as a developer and the mangled [Google
+to register as a
+<a href="https://console.cloud.google.com/">developer</a> and the
+mangled [Google
 examples](https://developers.google.com/webmaster-tools/search-console-api-original/v3/quickstart/quickstart-python)
-have you frustrated? Well then, ***ohawf*** is for you. Get the same
-“Login as Google” prompt in Jupyter that Mobile & Web apps use.
+have you frustrated? Well then, ***ohawf*** is for you.
 
 ## How to use
 
@@ -26,10 +27,17 @@ creds = ohawf.get()
 
 ### Why So Easy?
 
-Ohawf makes JupyterLab behave like an installed app. You know how Web or
-Mobile apps can offer you the “Login with Google” option? Same thing.
-This package makes JupyterLab work like an installed app. Perhaps you’d
-like to know a little more?
+Google OAuth2 woes go away once you can use the authentication scheme
+that pops up the same **“login as Google”** web-prompt that all Mobile
+and Web apps seem to be using these days. It doesn’t seem possible, but
+this authentication scheme actually works from a Jupyter Notebook in
+JupyterLab.
+
+Ohawf makes JupyterLab behave like an installed app, so that when you
+first run **creds= ohawf.get()**, you’ll be presented with the “Login
+with Google” prompt. Just just wait a moment, it will pop up a window
+separate from JupyterLab’s own, and let you log in then prompt you to
+close the window. If not, [https://mikelev.in/ux](Drink%20Me).
 
 ### A Tale of 2 Installed App Flows
 
@@ -48,13 +56,13 @@ easy.
 
 #### The New Way: Gotta Have a Webserver
 
-The new which is now the ohawf default is ***run_local_server()***. This
-is what you encounter all the time with mobile apps when you see “Login
-with Google”. An embedded browser pops up, goes through login, then
-returns you to the mobile app. This works in Jupyter too. If you have
-problems, run Jupyter <a href="https://mikelev.in/ux/">this way</a>. And
-if you need to force ohawf to use run_console() for a server
-installation, you can do this:
+The new way which is now the ohawf default is ***run_local_server()***.
+This is what you encounter all the time with mobile apps when you see
+“Login with Google”. An embedded browser pops up, goes through login,
+then returns you to the mobile app. This works in Jupyter too. If you
+have problems, run Jupyter <a href="https://mikelev.in/ux/">this
+way</a>. And if you need to force ohawf to use run_console() for a
+server installation, you can do this:
 
 ``` python
 import ohawf
@@ -62,7 +70,7 @@ creds = ohawf.get(cli=True)
 ```
 
 But then you’ll have to whitelist your email address, and you can only
-do that through the [Goole Cloud
+do that through the [Google Cloud
 Console](https://console.cloud.google.com/) so chicken-and-egg. If you
 have to go that route, consider just registering as a Google developer
 and downloading a OAuth Client secret json file like this:
@@ -109,6 +117,7 @@ If you want to set your own scopes, create a Python list of scopes and
 feed it to ohawf:
 
 ``` python
+scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 creds = ohawf(scopes=scopes)
 ```
 

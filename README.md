@@ -37,7 +37,7 @@ Ohawf makes JupyterLab behave like an installed app, so that when you
 first run **creds= ohawf.get()**, you’ll be presented with the “Login
 with Google” prompt. Just just wait a moment, it will pop up a window
 separate from JupyterLab’s own, and let you log in then prompt you to
-close the window. If not, \<a href=“https://mikelev.in/ux”Drink Me</a>.
+close the window. If not, <a href="https://mikelev.in/ux">Drink Me</a>.
 
 ### A Tale of 2 Installed App Flows
 

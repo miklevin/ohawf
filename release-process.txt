@@ -1,12 +1,6 @@
-For both core & index files
 nbdev_bump_version
-nbdev_build_docs
-nbdev_build_lib
-nbdev_clean_nbs
-git status
-git diff
-git commit -am "Preparing for release"
+nbdev_export
+nbdev_docs
+git commit -am "Something meaninful"
 git push
-rm dist/*
-python3 -m build
-twine upload dist/*
+nbdev_pypi

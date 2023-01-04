@@ -46,7 +46,6 @@ class Credentials:
                 "https://www.googleapis.com/auth/analytics.readonly",
                 "https://www.googleapis.com/auth/webmasters.readonly",
                 "https://www.googleapis.com/auth/yt-analytics.readonly",
-                "https://ww.googleapis.com/auth/photoslibrary.readonly",
             ]
 
         if not pkl:
